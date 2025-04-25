@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
@@ -9,11 +9,38 @@ import "./auth.css";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [redirect, setRedirect] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Check if user is already logged in
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+      setRedirect("/profile");
+    }
+    
+    // Check if the server is reachable
+    fetch('http://localhost:8080/api/test/status')
+      .then(response => {
+        console.log('Server status check:', response.status);
+        if (!response.ok) {
+          setMessage('Server is not responding correctly. Status: ' + response.status);
+        }
+      })
+      .catch(error => {
+        console.error('Server check error:', error);
+        setMessage('Cannot connect to server: ' + (error?.message || 'Unknown error'));
+      });
+  }, []);
+
+  // If already logged in, redirect to profile
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
+
   const initialValues = {
-    username: "",
-    password: "",
+    username: "testuser",
+    password: "password",
   };
 
   const validationSchema = Yup.object().shape({
@@ -26,22 +53,54 @@ const Login = () => {
     setMessage("");
     setLoading(true);
 
-    AuthService.login(username, password)
-      .then(() => {
-        navigate("/profile");
-        window.location.reload();
-      })
-      .catch((error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    console.log("Login attempt for:", username);
 
-        setLoading(false);
-        setMessage(resMessage);
-      });
+    // For testing, try direct fetch first
+    fetch('http://localhost:8080/api/auth/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password })
+    })
+    .then(response => {
+      console.log('Direct fetch response:', response);
+      if (!response.ok) {
+        return response.text().then(text => {
+          throw new Error(`Server responded with ${response.status}: ${text}`);
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Login successful via direct fetch:', data);
+      localStorage.setItem("user", JSON.stringify(data));
+      navigate("/profile");
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error('Direct fetch error:', error);
+      setMessage(error?.message || 'Login failed. Please try again.');
+      setLoading(false);
+      
+      // Fall back to AuthService if direct fetch fails
+      AuthService.login(username, password)
+        .then(data => {
+          console.log('Login successful via AuthService:', data);
+          navigate("/profile");
+          window.location.reload();
+        })
+        .catch(authError => {
+          console.error('AuthService error:', authError);
+          const resMessage = 
+            (authError?.response?.data?.message) || 
+            (authError?.message) || 
+            'An error occurred during login. Please try again.';
+
+          setLoading(false);
+          setMessage(resMessage);
+        });
+    });
   };
 
   return (
@@ -60,6 +119,7 @@ const Login = () => {
                 <div className="text-center mb-4">
                   <h2 className="auth-title">Welcome Back</h2>
                   <p className="auth-subtitle">Sign in to continue your training journey</p>
+                  <p className="text-muted">Use testuser/password for testing</p>
                 </div>
 
                 <Formik

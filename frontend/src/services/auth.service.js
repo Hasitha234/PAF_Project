@@ -1,20 +1,25 @@
-import axios from "axios";
+import axios from "./axios-config";
 
-const API_URL = "/api/auth/";
+const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
   login(username, password) {
+    console.log(`Attempting login for user: ${username}`);
     return axios
       .post(API_URL + "signin", {
         username,
         password
       })
       .then(response => {
-        if (response.data.token) {
+        console.log("Login response:", response.data);
+        if (response.data && response.data.token) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
-
         return response.data;
+      })
+      .catch(error => {
+        console.error("Login error:", error);
+        throw error;
       });
   }
 
@@ -23,16 +28,35 @@ class AuthService {
   }
 
   register(username, email, password, fullName) {
-    return axios.post(API_URL + "signup", {
-      username,
-      email,
-      password,
-      fullName
-    });
+    console.log(`Attempting registration for user: ${username}`);
+    return axios
+      .post(API_URL + "signup", {
+        username,
+        email,
+        password,
+        fullName
+      })
+      .then(response => {
+        console.log("Registration response:", response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error("Registration error:", error);
+        throw error;
+      });
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    const user = localStorage.getItem("user");
+    if (user) {
+      try {
+        return JSON.parse(user);
+      } catch (e) {
+        console.error("Error parsing user from localStorage:", e);
+        return null;
+      }
+    }
+    return null;
   }
 }
 

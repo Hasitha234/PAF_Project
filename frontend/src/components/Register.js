@@ -57,16 +57,16 @@ const Register = () => {
       fullName
     ).then(
       (response) => {
-        setMessage(response.data.message);
+        console.log("Registration successful:", response);
+        setMessage(response?.data?.message || "Registration successful!");
         setSuccessful(true);
       },
       (error) => {
+        console.error("Registration error:", error);
         const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+          (error?.response?.data?.message) ||
+          (error?.message) ||
+          "Registration failed. Please try again.";
 
         setMessage(resMessage);
         setSuccessful(false);
