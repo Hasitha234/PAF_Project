@@ -25,33 +25,40 @@ const NavBar = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="px-3">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/">
-          GYM Auth
+        <Navbar.Brand as={Link} to={currentUser ? "/wall" : "/"}>
+          CALISTHENICFLOW
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
+            {currentUser && (
+              <>
+                <Nav.Link as={Link} to="/wall">
+                  <i className="fas fa-home me-1"></i> Feed
+                </Nav.Link>
+                <Nav.Link as={Link} to="/profile">
+                  <i className="fas fa-user me-1"></i> Profile
+                </Nav.Link>
+              </>
+            )}
           </Nav>
 
           {currentUser ? (
             <Nav>
-              <Nav.Link as={Link} to="/profile">
-                {currentUser.username}
-              </Nav.Link>
+              <span className="navbar-text me-3 d-none d-md-block">
+                Welcome, {currentUser.username}
+              </span>
               <Button variant="outline-light" onClick={logOut}>
-                Log Out
+                <i className="fas fa-sign-out-alt me-1"></i> Log Out
               </Button>
             </Nav>
           ) : (
             <Nav>
               <Nav.Link as={Link} to="/login">
-                Login
+                <i className="fas fa-sign-in-alt me-1"></i> Login
               </Nav.Link>
               <Nav.Link as={Link} to="/register">
-                Sign Up
+                <i className="fas fa-user-plus me-1"></i> Sign Up
               </Nav.Link>
             </Nav>
           )}
