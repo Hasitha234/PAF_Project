@@ -16,7 +16,7 @@ const Login = () => {
     // Check if user is already logged in
     const currentUser = AuthService.getCurrentUser();
     if (currentUser) {
-      setRedirect("/profile");
+      setRedirect("/wall");
     }
     
     // Check if the server is reachable
@@ -35,7 +35,7 @@ const Login = () => {
 
   // If already logged in, redirect to profile
   if (redirect) {
-    return <Navigate to={redirect} />;
+    return <Navigate to="/wall" />;
   }
 
   const initialValues = {
@@ -75,7 +75,7 @@ const Login = () => {
     .then(data => {
       console.log('Login successful via direct fetch:', data);
       localStorage.setItem("user", JSON.stringify(data));
-      navigate("/profile");
+      navigate("/wall");
       window.location.reload();
     })
     .catch(error => {
@@ -87,7 +87,7 @@ const Login = () => {
       AuthService.login(username, password)
         .then(data => {
           console.log('Login successful via AuthService:', data);
-          navigate("/profile");
+          navigate("/wall");
           window.location.reload();
         })
         .catch(authError => {
