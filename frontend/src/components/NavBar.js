@@ -42,6 +42,9 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/progress">
                   <i className="fas fa-chart-line me-1"></i> Self Progress
                 </Nav.Link>
+                <Nav.Link as={Link} to="/workout-schedule">
+                  <i className="fas fa-calendar-alt me-1"></i> Workout Schedule
+                </Nav.Link>
               </>
             )}
           </Nav>
