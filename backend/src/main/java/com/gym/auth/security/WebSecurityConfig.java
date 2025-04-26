@@ -3,6 +3,7 @@ package com.gym.auth.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -52,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
@@ -68,7 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
-            .antMatchers("/**").permitAll() // Allow all requests during development
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow preflight requests
+            .antMatchers("/api/auth/**").permitAll() // Authentication endpoints
+            .antMatchers("/api/test/**").permitAll() // Public test endpoints
+            .antMatchers("/h2-console/**").permitAll() // H2 Console access
+            .antMatchers("/api/progress/**").authenticated() // Progress APIs require authentication
+            .antMatchers("/api/wall/**").authenticated() // Wall APIs require authentication
             .anyRequest().authenticated();
             
         // For H2 console

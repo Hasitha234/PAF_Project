@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
+import Progress from "./components/Progress";
 import Wall from "./components/Wall";
 import AuthService from "./services/auth.service";
 import UserService from "./services/user.service";
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/progress" element={<Progress />} />
             <Route path="/wall" element={<Wall />} />
           </Routes>
         </div>
