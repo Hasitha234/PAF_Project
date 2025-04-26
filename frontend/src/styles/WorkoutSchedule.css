@@ -1,0 +1,619 @@
+.workout-schedule-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+}
+
+.workout-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.workout-title-area {
+  flex: 1;
+}
+
+.page-title {
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.workout-actions-area {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.view-toggle-buttons {
+  display: flex;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.empty-state-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.empty-state-content h2 {
+  margin: 20px 0 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.empty-state-content p {
+  color: #6c757d;
+  margin-bottom: 30px;
+}
+
+.empty-state-button {
+  background-color: #4e73df;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(78, 115, 223, 0.25);
+}
+
+.empty-state-button:hover {
+  background-color: #2e59d9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(78, 115, 223, 0.3);
+}
+
+.create-workout-button {
+  background-color: #4e73df;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(78, 115, 223, 0.25);
+}
+
+.create-workout-button:hover {
+  background-color: #2e59d9;
+  box-shadow: 0 6px 8px rgba(78, 115, 223, 0.3);
+}
+
+.workout-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.workout-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  position: relative;
+}
+
+.workout-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 16px rgba(0,0,0,0.15);
+}
+
+.workout-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.workout-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.workout-day {
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.workout-description {
+  color: #6c757d;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.progress-container {
+  margin-bottom: 20px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4e73df;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.exercise-list {
+  margin-bottom: 20px;
+}
+
+.exercise-list h4 {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.exercise-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exercise-item {
+  padding: 12px 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.exercise-item:hover {
+  background-color: #e9ecef;
+}
+
+.exercise-item.completed {
+  opacity: 0.8;
+}
+
+.exercise-item-content {
+  display: flex;
+  gap: 12px;
+}
+
+.exercise-check {
+  display: flex;
+  align-items: center;
+}
+
+.exercise-details {
+  flex: 1;
+}
+
+.exercise-name {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 3px;
+  color: #333;
+}
+
+.exercise-meta {
+  display: block;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.exercise-notes {
+  display: block;
+  font-size: 0.8rem;
+  color: #495057;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.completed-icon {
+  color: #1cc88a;
+}
+
+.incomplete-icon {
+  color: #dddddd;
+}
+
+.completed .exercise-name {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.no-exercises {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 15px 0;
+}
+
+.workout-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-button, .delete-button {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-button:hover {
+  color: #4e73df;
+}
+
+.delete-button:hover {
+  color: #e74a3b;
+}
+
+.calendar-view {
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.weekday-cell {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: #495057;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  min-height: 500px;
+}
+
+.day-cell {
+  padding: 10px;
+  border-right: 1px solid #e3e6f0;
+  border-bottom: 1px solid #e3e6f0;
+  background-color: white;
+  min-height: 120px;
+}
+
+.day-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-workout {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.calendar-workout:hover {
+  transform: translateY(-2px);
+}
+
+.calendar-workout h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.calendar-progress {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.empty-day {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #adb5bd;
+  cursor: pointer;
+  border: 2px dashed #dee2e6;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.empty-day:hover {
+  background-color: #f8f9fa;
+  border-color: #4e73df;
+  color: #4e73df;
+}
+
+.add-to-day {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.workout-modal .modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.workout-modal .modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 20px 24px;
+}
+
+.workout-modal .modal-title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.workout-modal-body {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.form-control-modern {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+
+.form-control-modern:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+}
+
+.color-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.color-option.selected {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #4e73df;
+}
+
+.exercise-item-form {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+}
+
+.exercise-item-form:last-child {
+  margin-bottom: 0;
+}
+
+.exercise-item-form-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exercise-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-info strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.exercise-info span {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.remove-exercise {
+  color: #e74a3b;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-exercise:hover {
+  color: #d52a1a;
+}
+
+.add-exercise-form {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 24px;
+}
+
+.add-exercise-form h6 {
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-exercise-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.save-workout-btn {
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.workout-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.spinner-container {
+  text-align: center;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #4e73df;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.error-message {
+  text-align: center;
+  color: #e74a3b;
+  max-width: 500px;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.error-message h3 {
+  margin: 15px 0;
+}
+
+@media (max-width: 768px) {
+  .workout-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .workout-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-view {
+    overflow-x: auto;
+  }
+  
+  .weekday-header, .calendar-grid {
+    min-width: 700px;
+  }
+
+  .exercise-item-form-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .remove-exercise {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 576px) {
+  .exercise-items {
+    gap: 15px;
+  }
+
+  .exercise-item-content {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exercise-check {
+    align-self: flex-start;
+  }
+
+  .modal-action-buttons {
+    flex-direction: column;
+  }
+
+  .modal-action-buttons button {
+    width: 100%;
+  }
+} 
